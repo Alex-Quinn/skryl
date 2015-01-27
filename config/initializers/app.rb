@@ -1,24 +1,9 @@
 Rails.configuration.name         = Rails.application.class.parent.name
-Rails.configuration.full_name    = 'Aleksey Skryl'
-Rails.configuration.display_name = 'Aleksey Skryl'
-
-RssFeed.configure do |mod|
-  mod.tag = :writing
-  mod.atom = [ 'http://thoughts.skryl.org/rss' ]
-end
-
-RssFeed.configure do |mod|
-  mod.tag = :tech
-  mod.atom = [ 'http://tech.skryl.org/rss' ]
-end
-
-RssFeed.configure do |mod|
-  mod.tag = :link
-  mod.atom = [ 'http://getpocket.com/users/skryl/feed/read' ]
-end
+Rails.configuration.full_name    = 'Alex Quinn'
+Rails.configuration.display_name = 'Alex Quinn'
 
 Github.configure do |mod|
-  mod.user = 'skryl'
+  mod.user = 'Alex-Quinn'
 end
 
 Goodreads.configure do |mod|
@@ -26,22 +11,4 @@ Goodreads.configure do |mod|
   mod.key     = ENV['GOODREADS_KEY']
   mod.user_id = ENV['GOODREADS_ID']
   mod.uri     = "http://www.goodreads.com/review/list/#{mod.user_id}.xml?v=2&per_page=200&shelf=read&sort=date_read&key=#{mod.key}"
-end
-
-TwitterStream.configure do |mod|
-  mod.user = '_skryl_'
-  mod.twitter_client = Twitter::REST::Client.new do |client|
-    client.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-    client.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
-    client.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-    client.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
-  end
-end
-
-Mapmyfitness.configure do |mod|
-  mod.mmf_client = Mmf::Client.new do |config|
-    config.client_key    = ENV['MMF_KEY']
-    config.client_secret = ENV['MMF_SECRET']
-    config.access_token  = ENV['MMF_TOKEN']
-  end
 end

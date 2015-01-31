@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe Book do
-  # :all or :each
   before(:each) do
-    @valid_book = Book.new :goodreads_id => 1, 
-      :title       => 'Harry Potter', 
-      :finished_at => Time.now, 
+    @valid_book = Book.new :goodreads_id => 1,
+      :title       => 'Harry Potter',
+      :finished_at => Time.now,
       :num_pages   => 893
   end
 
@@ -13,7 +12,7 @@ describe Book do
     it "should be valid" do
       @valid_book.valid?.should == true
     end
-    
+
     pending "need more Book validation specs"
   end
 
@@ -38,7 +37,7 @@ describe Book do
       b = Book.new
       b.add_author 'John Smith'
       b.add_author 'Jane Doe'
-      b.author.should == 'John Smith, and Jane Doe'
+      b.author.should == 'Jane Doe, and John Smith'
     end
 
     it "should create a phrase with three or more author names" do
@@ -46,7 +45,7 @@ describe Book do
       b.add_author 'John Smith'
       b.add_author 'Jane Doe'
       b.add_author 'Ben Bernanke'
-      b.author.should == 'John Smith, Jane Doe, and Ben Bernanke'
+      b.author.should == 'Ben Bernanke, Jane Doe, and John Smith'
     end
   end
 end

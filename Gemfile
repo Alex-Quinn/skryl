@@ -15,6 +15,7 @@ gem 'slim'
 gem 'twitter'
 gem 'uglifier'
 gem 'whenever', :require => false
+gem 'www-delicious'
 
 group :development, :test do
   gem 'pry'

@@ -10,43 +10,14 @@
   .col_12
 
 .row
-  .col_6#about
+  .col_12#about
     h2 About
-    p My name is #{link_to 'Alex', 'http://skryl.org'}, I am a freelance software engineer currently living in Chicago, and this is my personal data aggregator. It helps me set better goals and track my progress as I stumble along the path to enlightenment. Feel free to drop me a line at #{link_to 'aleksey.skryl@gmail.com', 'mailto:aleksey.skryl@gmail.com'} or check out my #{link_to 'resume', 'http://careers.stackoverflow.com/skryl'}.
-
-  .col_6.last#writing
-    h2= link_to 'Writing', 'links?tag=writing'
-    p I #{link_to 'write', 'links?tag=writing'} fiction and blog once in a while. This is my latest writing.
-    ul
-      - @writings.each do |a|
-        li
-          = link_to a.title, a.permalink
-          = ' '
-          span.meta= a.published_at.getlocal.strftime('%b %e, %Y')
+    p My name is Alex, I am a software engineer currently living in Chicago and working for #{link_to 'Braintree', 'https://braintreepayments.com'}.
 
 .row
-  .col_6#books
-    h2= link_to 'Books', :books
-    p My entire #{link_to('reading history', :books)} is available online. The most recent book that I read was <em>#{@book.title}</em> by #{@book.author}.
-    = render :partial => 'charts/books_chart'
-
-  .col_6.last#programming
-    h2= link_to 'Programming', "https://github.com/skryl"
-    p These are the open source #{link_to 'projects', "https://github.com/skryl"} that I'm currently working on.
-    ul
-      li #{link_to 'rbpath', 'https://github.com/skryl/rbpath'} &mdash; An XPath like query language for Ruby data structures
-      li #{link_to 'cortex', 'https://github.com/skryl/cortex'} &mdash; A nuPIC whitepaper implementation
-      li #{link_to 'cursed', 'https://github.com/skryl/cursed'} &mdash; A curses based window manager for tabular data
-      li #{link_to 'vimdoc', 'https://github.com/skryl/vimdoc'} &mdash; A vimrc documentation plugin
-      li #{link_to 'nike', 'https://github.com/skryl/nike'} &mdash; A REST Client for the Nike+ API
-      li #{link_to 'polly', 'https://github.com/skryl/polly'} &mdash; A DSL for working with functional symbolic expressions in Ruby
-      li #{link_to 'qbwc', 'https://github.com/skryl/qbwc'} &mdash; A Rails gem for interfacing with Intuit's Quickbooks Web Connector
-      li #{link_to 'qbxml', 'https://github.com/skryl/qbxml'} &mdash; A Quickbooks XML Parser and validation tool
-
-.row
-  .col_6#links
-    h2= link_to 'Links', 'links?tag=link'
-    p Some inspiring #{link_to 'content', 'links?tag=link'} from around the web.
+  .col_12#links
+    h2= link_to 'Links', :links
+    p Some #{link_to 'content', :links} from around the web that I've found interesting.
     ul
       - @links.each do |a|
         li
@@ -54,31 +25,20 @@
           = ' '
           span.meta= a.published_at.getlocal.strftime('%b %e, %Y')
 
-  .col_6.last#tech
-    h2= link_to 'Tech', 'links?tag=tech'
-    p Check out some of my #{link_to 'tutorials', 'links?tag=tech'} and technical tidbits here.
-    ul
-      - @tech.each do |a|
-        li
-          = link_to a.title, a.permalink
-          = ' '
-          span.meta= a.published_at.getlocal.strftime('%b %e, %Y')
-
+.row
+  .col_12#books
+    h2= link_to 'Books', :books
+    p My entire #{link_to('reading history', :books)} is available online. The most recent book that I read was <em>#{@book.title}</em> by #{@book.author}.
+    = render :partial => 'charts/books_chart'
 
 .row
-  .col_6#twitter
-    h2= link_to 'Twitter', :twitter
-    = render :partial => 'charts/tweets_chart', :locals => { :is_compact => true }
-    p Here are my latest tweets:
-    ul
-      - @tweets.each do |t|
-        li
-          = raw t.content_html
-          = ' '
-          span.meta= link_to distance_of_time_in_words(t.published_at.getlocal, Time.now, true), t.permalink
-    p= link_to "Every one of my #{pluralize(number_with_delimiter(Tweet.count), 'tweet')}", :twitter
+  .col_12#Physical
+    h2= link_to 'Exercise', :exercise
+    p I track my #{link_to 'exercise', :exercise} to improve my physical and mental performance.
+    = render :partial => 'charts/exercise_summary_chart', :locals => { :is_compact => true }
 
-  .col_6.last#github
+.row
+  .col_12.last#github
     h2= link_to 'GitHub', 'https://github.com/skryl'
     = render :partial => 'charts/action_chart', :locals => { :is_compact => true }
     p This is my latest activity:
@@ -90,11 +50,6 @@
           span.meta= link_to distance_of_time_in_words(a.published_at.getlocal, Time.now, true), a.permalink
     p= link_to "See my Github profile", 'https://github.com/skryl'
 
-.row
-  .col_12#Physical
-    h2= link_to 'Exercise', :exercise
-    p I track my #{link_to 'exercise', :exercise} to improve my physical and mental performance.
-    = render :partial => 'charts/exercise_summary_chart', :locals => { :is_compact => true }
 
 .row
   .col_12.last

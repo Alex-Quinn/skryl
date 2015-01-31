@@ -31,14 +31,6 @@ class DataModule
     @config = OpenStruct.new
   end
 
-  def update
-    railse 'Not Implemented'
-  end
-
-  def initial_update
-    railse 'Not Implemented'
-  end
-
 private
 
   def save_and_increment(item)

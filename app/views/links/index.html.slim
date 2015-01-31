@@ -2,11 +2,6 @@
   == 'Links &mdash; skryl.com'
 
 .row
-  .col_12.last#header
-    header
-      = render :partial => 'shared/go_home'
-      h1= params[:tag].pluralize.capitalize
-.row
   .col_1
     ul.section_list
       - @links_by_year.each do |year, links|
@@ -26,6 +21,6 @@
               | <em>#{link_to a.title, a.permalink}</em>
               span.meta
                 = ' '
-                | published #{published} on #{URI.parse(a.permalink).host}
+                | saved #{published} from #{URI.parse(a.permalink).host}
 
     = render :partial => 'shared/footer'

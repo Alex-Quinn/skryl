@@ -33,7 +33,7 @@ class Book < ActiveRecord::Base
 
   def author
     if self.authors.size > 1
-      author_parts = self.authors.order('name ASC').map{|a| a.name}.intersperse(', ')
+      author_parts = self.authors.sort_by(&:name).map(&:name).intersperse(', ')
       author_parts[author_parts.size - 2] = ', and '
       author_parts.join
     elsif self.authors.size == 1

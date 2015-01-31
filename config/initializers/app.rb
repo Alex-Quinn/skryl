@@ -12,3 +12,8 @@ Goodreads.configure do |mod|
   mod.user_id = ENV['GOODREADS_ID']
   mod.uri     = "http://www.goodreads.com/review/list/#{mod.user_id}.xml?v=2&per_page=200&shelf=read&sort=date_read&key=#{mod.key}"
 end
+
+Delicious.configure do |mod|
+  mod.user = ENV['DELICIOUS_USER']
+  mod.password = ENV['DELICIOUS_PASSWORD']
+end

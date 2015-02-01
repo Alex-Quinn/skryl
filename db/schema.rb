@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140701020342) do
+ActiveRecord::Schema.define(:version => 20150201181532) do
 
   create_table "activities", :force => true do |t|
     t.datetime "created_at",    :null => false
@@ -20,17 +20,11 @@ ActiveRecord::Schema.define(:version => 20140701020342) do
     t.string   "activity_type", :null => false
     t.datetime "start_time",    :null => false
     t.string   "status"
-    t.boolean  "gps"
-    t.integer  "latitude"
-    t.integer  "longitude"
-    t.boolean  "heartrate"
-    t.string   "device_type"
     t.float    "duration",      :null => false
     t.float    "distance",      :null => false
-    t.integer  "calories",      :null => false
     t.text     "gps_data"
-    t.text     "hr_data"
     t.text     "speed_data"
+    t.boolean  "commute"
   end
 
   create_table "book_authors", :force => true do |t|

@@ -5,7 +5,7 @@ class Activity < ActiveRecord::Base
   serialize :hr_data
   serialize :speed_data
 
-  validates_presence_of :activity_id, :activity_type, :start_time, :duration, :distance, :calories
+  validates_presence_of :activity_id, :activity_type, :start_time, :duration, :distance
 
   scope :past_year, where('start_time > ?', Time.now - 12.months)
 
@@ -32,16 +32,14 @@ class Activity < ActiveRecord::Base
     dy_cutoff:     [SPEED_DY_CUTOFF, HR_DY_CUTOFF]
   }
 
-  def self.new_from_api_response(response)
-    new activity_id:    response['_links']['self'].first['id'].to_s,
-        activity_type:  response['name'] == 'Treadmill' ? 'HEARTRATE' : 'RUN',
-        start_time:     Time.parse(response['start_datetime']),
-        duration:       response['aggregates']['elapsed_time_total']/60.0,
-        distance:       0,
-        calories:       0,
-        gps_data:       parse_gps_data(response),
-        hr_data:        parse_hr_data(response),
-        speed_data:     parse_speed_data(response)
+  def self.new_from_api_helper(item)
+    new :activity_id => item["id"],
+        :activity_type => item["type"],
+        :start_time => item["start_date"],
+        :status => item["resource_state"],
+        :duration => item["elapsed_time"],
+        :distance => item["distance"],
+        :commute => item["commute"]
   end
 
   def self.parse_gps_data(response)

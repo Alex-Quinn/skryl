@@ -16,6 +16,7 @@ gem 'twitter'
 gem 'uglifier'
 gem 'whenever', :require => false
 gem 'www-delicious'
+gem 'strava-api-v3'
 
 group :development, :test do
   gem 'pry'

@@ -17,3 +17,7 @@ Delicious.configure do |mod|
   mod.user = ENV['DELICIOUS_USER']
   mod.password = ENV['DELICIOUS_PASSWORD']
 end
+
+StravaData.configure do |mod|
+  mod.token = ENV['STRAVA_TOKEN']
+end

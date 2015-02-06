@@ -86,7 +86,7 @@ describe StravaData do
             "summary_polyline"=>nil,
             "resource_state"=>2
           },
-          "trainer"=>false,
+          "trainer"=>true,
           "commute"=>false,
           "manual"=>true,
           "private"=>false,
@@ -107,6 +107,7 @@ describe StravaData do
       first_activity = Activity.where(:activity_id => 12345).first!
       expect(first_activity).to_not be_nil
       expect(first_activity.activity_type).to eql("Ride")
+      expect(first_activity.name).to eql("Commute")
       expect(first_activity.start_time).to eql(Time.new(2015,1,30,07,30,00).in_time_zone("America/Chicago"))
       expect(first_activity.status).to eql("2")
       expect(first_activity.duration).to eql(1800.0)
@@ -114,10 +115,12 @@ describe StravaData do
       expect(first_activity.gps_data).to be_nil
       expect(first_activity.speed_data).to be_nil
       expect(first_activity.commute).to eql(true)
+      expect(first_activity.trainer).to eql(false)
 
       second_activity = Activity.where(:activity_id => 54321).first!
       expect(second_activity).to_not be_nil
       expect(second_activity.activity_type).to eql("Ride")
+      expect(second_activity.name).to eql("Training Ride")
       expect(second_activity.start_time).to eql(Time.new(2015,1,21,8,30,00).in_time_zone("America/Chicago"))
       expect(second_activity.status).to eql("2")
       expect(second_activity.duration).to eql(6000.0)
@@ -125,6 +128,7 @@ describe StravaData do
       expect(second_activity.gps_data).to be_nil
       expect(second_activity.speed_data).to be_nil
       expect(second_activity.commute).to eql(false)
+      expect(second_activity.trainer).to eql(true)
     end
 
     it "does not save a activity more than once" do

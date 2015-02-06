@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20150201181532) do
     t.text     "gps_data"
     t.text     "speed_data"
     t.boolean  "commute"
+    t.boolean  "trainer"
+    t.string   "name"
   end
 
   create_table "book_authors", :force => true do |t|

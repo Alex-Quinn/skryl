@@ -8,6 +8,8 @@ class AlterActivitiesForStrava < ActiveRecord::Migration
     remove_column :activities, :calories
     remove_column :activities, :hr_data
     add_column :activities, :commute, :boolean
+    add_column :activities, :trainer, :boolean
+    add_column :activities, :name, :string
   end
 
   def down

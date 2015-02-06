@@ -8,6 +8,9 @@ class Activity < ActiveRecord::Base
   validates_presence_of :activity_id, :activity_type, :start_time, :duration, :distance
 
   scope :past_year, where('start_time > ?', Time.now - 12.months)
+  scope :commute, where(:commute => true)
+  scope :training, where(:commute => false)
+  scope :indoor, where(:trainer => true)
 
   set_start_time_field :start_time
   set_duration_field :duration
@@ -34,12 +37,14 @@ class Activity < ActiveRecord::Base
 
   def self.new_from_api_helper(item)
     new :activity_id => item["id"],
+        :name => item["name"],
         :activity_type => item["type"],
         :start_time => item["start_date"],
         :status => item["resource_state"],
         :duration => item["elapsed_time"],
         :distance => item["distance"],
-        :commute => item["commute"]
+        :commute => item["commute"],
+        :trainer => item["trainer"]
   end
 
   def self.parse_gps_data(response)

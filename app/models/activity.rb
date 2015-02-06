@@ -2,7 +2,6 @@ class Activity < ActiveRecord::Base
   include GraphStats
 
   serialize :gps_data
-  serialize :hr_data
   serialize :speed_data
 
   validates_presence_of :activity_id, :activity_type, :start_time, :duration, :distance
@@ -52,12 +51,6 @@ class Activity < ActiveRecord::Base
     return [] unless response['time_series'] && response['time_series'].include?('position')
     response['time_series']['position'].map {|time, val| val}
   end
-
-  def self.parse_hr_data(response)
-    return [] unless response['time_series'] && response['time_series'].include?('heartrate')
-    response['time_series']['heartrate'].map {|time, val| val}
-  end
-
   def self.parse_speed_data(response)
     return [] unless response['time_series'] && response['time_series'].include?('speed')
     response['time_series']['speed'].map {|time, val| val * MPS_TO_MPH}
@@ -83,23 +76,10 @@ class Activity < ActiveRecord::Base
     @dy_cutoff ||= choose_constant(:dy_cutoff)
   end
 
-  def missing_hr?
-    hr_data.empty?
-  end
-
 private
 
   def normalize(graph_data)
     return [] unless graph_data
     reduce( fix_zeroes( graph_data.map {|p| p.to_i} ) )
   end
-
-  def choose_constant(name)
-    CONSTANTS[name][missing_hr? ? 0 : 1]
-  end
-
-  def long_session?
-    speed_data.size > LONG_SESSION || hr_data.size > LONG_SESSION
-  end
-
 end

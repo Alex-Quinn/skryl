@@ -53,7 +53,7 @@
         li
           = raw a.title
           = ' '
-          span.meta= link_to distance_of_time_in_words(a.published_at.getlocal, Time.now, true), a.permalink
+          span.meta= link_to distance_of_time_in_words(a.published_at.getlocal, Time.now, true) + ' ago', a.permalink
     p= link_to "See my Github profile", 'https://github.com/Alex-Quinn', :target => '_blank'
 
 

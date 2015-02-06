@@ -6,34 +6,8 @@
     header
       = render :partial => 'shared/go_home'
       h1 Exercise
-p I track my physical activity using the #{link_to 'TomTom Multisport GPS Watch', 'http://www.dcrainmaker.com/2013/07/tomtom-runner-multisport.html'} and #{link_to 'MapMyFitness', 'http://www.mapmyfitness.com/profile/41809135'}.
+p I track my physical activity using data from #{link_to 'Strava', 'https://www.strava.com'}.
 
 .row
   .col_12
-    = render :partial => 'charts/exercise_chart'
-
-.row
-  .col_1
-    ul.section_list
-      - @activity_by_year_month.reverse_each do |year, activity_by_month|
-        li
-          = link_to year, "#year_#{year}"
-          ul
-            - activity_by_month.reverse_each do |month, tweet|
-              li= link_to month_name(month), "#month_#{year}_#{month}"
-  .col_11.last
-    - @activity_by_year_month.reverse_each do |year, activity_by_month|
-      h2 id="year_#{year}"= year
-      .activity_year
-        - activity_by_month.reverse_each do |month, activity|
-          / No top margin for the first month in each year for a cleaner look
-          - extra = month == activity_by_month.keys.first ? 'top' : ''
-          - activity.sort!{|t1, t2| t2.start_time <=> t1.start_time}.each do |a|
-            h3 id="month_#{year}_#{month}" class="#{extra}" #{month_name(month)} #{a.start_time.day}
-            div*{class: "chart", id: "activity_breakdown_chart#{a.id}"}
-            - if a.missing_hr?
-              = render :partial => 'charts/speed_breakdown_chart', :locals => {:record_id => a.id}
-            - else
-              = render :partial => 'charts/hr_breakdown_chart', :locals => {:record_id => a.id}
-
     = render :partial => 'shared/footer'

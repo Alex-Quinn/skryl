@@ -7,7 +7,8 @@ class HomeController < ApplicationController
     @links                   = Link.ordered.limit(10)
     @book                    = Book.ordered.first
     @book_count_by_year      = Book.ordered.count_by{|b| b.finished_at.beginning_of_year}
-    @exercise_count          = Activity.past_year.average_by_month
+    @commute_count           = Activity.commute.past_year.instances_by_week
+    @training_count          = Activity.training.past_year.instances_by_week
 
     gon.bookCountByYearData          = @book_count_by_year.map{|k, v| v}
     gon.bookCountByYearCategories    = @book_count_by_year.map{|k, v| k.strftime('%Y')}
@@ -16,7 +17,10 @@ class HomeController < ApplicationController
     gon.actionCountByMonthData       = @action_count_by_month.map{|k, v| v}
     gon.actionCountByMonthStep       = defined?(is_compact) && is_compact ? 2 : 1
 
-    gon.exerciseChartCategories      = @exercise_count.map{|k, v| k.strftime("%b '%y")}
-    gon.exerciseChartData            = @exercise_count.map{|k, v| v}
+    gon.commuteChartCategories      = @commute_count.map{|k, v| k.strftime("%b %d '%y")}
+    gon.commuteChartData            = @commute_count.map{|k, v| v}
+
+    gon.trainingChartCategories      = @training_count.map{|k, v| k.strftime("%b %d '%y")}
+    gon.trainingChartData            = @training_count.map{|k, v| v}
   end
 end

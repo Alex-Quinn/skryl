@@ -16,6 +16,7 @@ class Activity < ActiveRecord::Base
   set_duration_field :duration
   set_days_to_graph 30
   set_months_to_graph 6
+  set_weeks_to_graph 8
   set_average_range 30
 
   HR_INTERVAL  = 1.seconds

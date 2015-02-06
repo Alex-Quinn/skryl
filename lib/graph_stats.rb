@@ -36,6 +36,7 @@ module ClassMethods
     scope :ordered, order("#{field} ASC")
     scope :last_n_days, lambda { |n| where("#{field} > ?", (Date.today - n)) }
     scope :last_n_months, lambda { |n| where("#{field} > ?", (Date.today.end_of_month - (n-1).months)) }
+    scope :last_n_weeks, lambda { |n| where("#{field} > ?", (Date.today.end_of_week - (n-1).weeks)) }
   end
 
   def set_end_time_field(field)
@@ -52,6 +53,10 @@ module ClassMethods
 
   def set_detailed_days_to_graph(days)
     @detailed_days_to_graph = days
+  end
+
+  def set_weeks_to_graph(weeks)
+    @weeks_to_graph = weeks
   end
 
   def set_months_to_graph(months)
@@ -120,15 +125,29 @@ module ClassMethods
     empty_days_to_graph.merge(end_time_by_day)
   end
 
+# weekly stats
+
+  def activity_by_week
+    last_n_weeks(@weeks_to_graph).group_by { |s| s.send(@start_time_field).beginning_of_week }
+  end
+
+  def instances_by_week
+    activity_instances_by_week = activity_by_week.inject({}) do |h, (date, records)|
+      h[date.to_date] = records.size; h
+    end
+    empty_weeks_to_graph.merge(activity_instances_by_week)
+  end
+
+
 # monthly stats
 
   def activity_by_month
     last_n_months(@months_to_graph).group_by { |s| s.send(@start_time_field).beginning_of_month }
   end
 
-  def average_by_month
+  def average_minutes_by_month
     activity_time_by_month = activity_by_month.inject({}) do |h, (date, records)|
-      h[date.to_date] = (records.map { |r| r.send(@duration_field) }.sum / (@average_range || records.size)).round(2); h
+      h[date.to_date] = (records.map { |r| r.send(@duration_field) }.sum / (@average_range || records.size) / 60.0 ).round(2); h
     end
     empty_months_to_graph.merge(activity_time_by_month)
   end
@@ -158,6 +177,10 @@ private
 
   def empty_months_to_graph
     (0...@months_to_graph).to_a.reverse.inject({}) { |h, m_ago| h[(Date.today - m_ago.months).beginning_of_month] = @default_monthly_value || 0; h }
+  end
+
+  def empty_weeks_to_graph
+    (0...@weeks_to_graph).to_a.reverse.inject({}) { |h, w_ago| h[(Date.today - w_ago.weeks).beginning_of_week] = 0; h }
   end
 
   def day_shift(activity_by_day)

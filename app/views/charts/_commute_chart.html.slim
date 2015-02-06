@@ -1,15 +1,15 @@
-.chart#exercise_chart
+.chart#commute_chart
 - content_for(:javascript) do
   coffee:
     $ ->
        chart = new Highcharts.Chart
           chart:
-            renderTo: 'exercise_chart'
+            renderTo: 'commute_chart'
             defaultSeriesType: 'line'
           title:
             text: 'Total by Day'
           xAxis:
-            categories: gon.exerciseChartCategories
+            categories: gon.commuteChartCategories
             labels:
               rotation: -45
               align: 'right'
@@ -23,5 +23,5 @@
             formatter: ->
               this.y + (if this.y != 1 then ' minutes' else ' minute') + ' in ' + this.x
           series: [
-            { name: 'minutes', data: gon.exerciseChartData }
+            { name: 'minutes', data: gon.commuteChartData }
           ]

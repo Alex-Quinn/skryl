@@ -1,0 +1,47 @@
+.chart#commute_chart
+- content_for(:javascript) do
+  coffee:
+    $ ->
+       chart = new Highcharts.Chart
+          chart:
+            renderTo: 'commute_chart',
+          title:
+            text: 'Weekly Active Commute'
+          xAxis:
+            categories: gon.commuteChartCategories
+            labels:
+              rotation: -45
+              align: 'right'
+              step: 1
+          yAxis: [ {
+            min: 0,
+            max: 7,
+            title: { text: '' },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null,
+            labels: { style: { color: '#4572A7' } },
+            plotBands: [
+              { from: 0, to: 12, color: 'rgba(0, 0, 0, 0)', label: { text: '', style: { color: '#606060' } } },
+              { from: 13, to: 25, color: 'rgba(0, 0, 0, 0.04)', label: { text: '', style: { color: '#606060' } } },
+              { from: 26, to: 38, color: 'rgba(0, 0, 0, 0)', label: { text: '', style: { color: '#606060' } } },
+              { from: 39, to: 50, color: 'rgba(0, 0, 0, 0.04)', label: { text: '', style: { color: '#606060' } } }
+            ]
+          },
+          {
+            min: 0,
+            max: 1,
+            tickInterval: 1,
+            opposite: true,
+            title: { text: '' },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null,
+            labels: { style: { color: '#AA4643' } },
+          } ]
+          tooltip:
+            formatter: -> this.y + ' commutes'
+          series: [
+            { name: 'Commute', data: gon.commuteChartData, type: 'spline', lineWidth: 1 }
+          ]
+

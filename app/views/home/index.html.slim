@@ -32,10 +32,16 @@
     = render :partial => 'charts/books_chart'
 
 .row
-  .col_12#Physical
-    h2= link_to 'Exercise', :exercise
-    p I track my #{link_to 'exercise', :exercise} to improve my physical and mental performance.
-    = render :partial => 'charts/exercise_summary_chart', :locals => { :is_compact => true }
+  .col_12#Commute
+    h2= link_to 'Commute', :exercise
+    p I track my #{link_to 'commute', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com'}.
+    = render :partial => 'charts/commute_summary_chart', :locals => { :is_compact => true }
+
+.row
+  .col_12#Training
+    h2= link_to 'Training', :exercise
+    p I track my #{link_to 'training', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com'}.
+    = render :partial => 'charts/training_summary_chart', :locals => { :is_compact => true }
 
 .row
   .col_12.last#github

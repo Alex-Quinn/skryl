@@ -6,7 +6,7 @@
           chart:
             renderTo: 'commute_chart',
           title:
-            text: 'Weekly Active Commute'
+            text: 'Active Commutes by Week'
           xAxis:
             categories: gon.commuteChartCategories
             labels:
@@ -40,7 +40,7 @@
             labels: { style: { color: '#AA4643' } },
           } ]
           tooltip:
-            formatter: -> this.y + ' commutes'
+            formatter: -> this.y + ' days'
           series: [
             { name: 'Commute', data: gon.commuteChartData, type: 'spline', lineWidth: 1 }
           ]

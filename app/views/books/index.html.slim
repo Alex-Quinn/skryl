@@ -6,7 +6,7 @@
     header
       = render :partial => 'shared/go_home'
       h1 Books
-p I've read #{pluralize(@books_count, 'book')} since #{@books_by_year.keys.min}, the most recent of which was <em>#{@book.title}</em> by #{@book.author}. I track my reading with #{link_to 'Goodreads', 'http://www.goodreads.com/review/list/' + Goodreads.instances[0].config.user_id + '?shelf=read'}.
+p I've read #{pluralize(@books_count, 'book')} since #{@books_by_year.keys.min}, the most recent of which was <em>#{@book.title}</em> by #{@book.author}. I track my reading with #{link_to 'Goodreads', 'http://www.goodreads.com/review/list/' + Goodreads.instances[0].config.user_id + '?shelf=read', :target => '_blank'}.
 
 .row
   .col_6
@@ -31,12 +31,12 @@ p I've read #{pluralize(@books_count, 'book')} since #{@books_by_year.keys.min},
                 - finished = "#{distance_of_time_in_words(b.finished_at.getlocal, Time.now, true)} ago"
               - else
                 - finished = b.finished_at.getlocal.strftime('%b %e, %Y')
-              | <em>#{link_to b.title, "http://www.goodreads.com/book/show/#{b.goodreads_id}"}</em> by #{b.author}
+              | <em>#{link_to b.title, "http://www.goodreads.com/book/show/#{b.goodreads_id}", :target => '_blank'}</em> by #{b.author}
               = ' '
               span.meta
                 | #{pluralize b.num_pages, 'page'},
                 - unless b.isbn13.empty?
-                  | ISBN13: #{link_to format_isbn13(b.isbn13), "http://www.google.com/search?tbo=p&tbm=bks&q=isbn:#{b.isbn13}"},
+                  | ISBN13: #{link_to format_isbn13(b.isbn13), "http://www.google.com/search?tbo=p&tbm=bks&q=isbn:#{b.isbn13}", :target => '_blank'},
                 | finished #{finished}
 
     = render :partial => 'shared/footer'

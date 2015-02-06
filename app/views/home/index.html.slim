@@ -12,16 +12,16 @@
 .row
   .col_12#about
     h2 About
-    p My name is Alex, I am a software engineer currently living in Chicago and working for #{link_to 'Braintree', 'https://braintreepayments.com'}.
+    p My name is Alex, I am a software engineer currently living in Chicago and working for #{link_to 'Braintree', 'https://braintreepayments.com', :target => '_blank'}.
 
 .row
   .col_12#links
     h2= link_to 'Links', :links
-    p Some #{link_to 'content', :links} from around the web that I've found interesting.
+    p Some #{link_to 'content', :links} from around the web that I've found interesting. This data is pulled from #{link_to 'Delicious', 'https://delicious.com', :target => '_blank'}
     ul
       - @links.each do |a|
         li
-          = link_to a.title, a.permalink
+          = link_to a.title, a.permalink, :target => '_blank'
           = ' '
           span.meta= a.published_at.getlocal.strftime('%b %e, %Y')
 
@@ -34,18 +34,18 @@
 .row
   .col_12#Commute
     h2= link_to 'Commute', :exercise
-    p I track my #{link_to 'commute', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com'}.
+    p I track my #{link_to 'commute', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com', :target => '_blank'}.
     = render :partial => 'charts/commute_summary_chart', :locals => { :is_compact => true }
 
 .row
   .col_12#Training
     h2= link_to 'Training', :exercise
-    p I track my #{link_to 'training', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com'}.
+    p I track my #{link_to 'training', :exercise} using data from #{link_to 'Strava', 'https://www.strava.com', :target => '_blank'}.
     = render :partial => 'charts/training_summary_chart', :locals => { :is_compact => true }
 
 .row
   .col_12.last#github
-    h2= link_to 'GitHub', 'https://github.com/skryl'
+    h2= link_to 'GitHub', 'https://github.com/Alex-Quinn', :target => '_blank'
     = render :partial => 'charts/action_chart', :locals => { :is_compact => true }
     p This is my latest activity:
     ul#actions
@@ -54,7 +54,7 @@
           = raw a.title
           = ' '
           span.meta= link_to distance_of_time_in_words(a.published_at.getlocal, Time.now, true), a.permalink
-    p= link_to "See my Github profile", 'https://github.com/skryl'
+    p= link_to "See my Github profile", 'https://github.com/Alex-Quinn', :target => '_blank'
 
 
 .row

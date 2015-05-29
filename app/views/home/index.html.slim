@@ -56,6 +56,16 @@
           span.meta= link_to distance_of_time_in_words(a.published_at.getlocal, Time.now, true) + ' ago', a.permalink
     p= link_to "See my Github profile", 'https://github.com/Alex-Quinn', :target => '_blank'
 
+.row
+  .col_12#climbing_routes
+    h2= link_to 'Climbing Routes', ""
+    p Here are the climbing routes that I've done.
+    ul
+      - @climbing_routes.each do |a|
+        li
+          = link_to a.name, a.link, :target => '_blank'
+          = ' '
+          span.meta= "#{a.grade}, #{a.location}"
 
 .row
   .col_12.last

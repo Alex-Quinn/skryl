@@ -21,3 +21,8 @@ end
 StravaData.configure do |mod|
   mod.token = ENV['STRAVA_TOKEN']
 end
+
+MountainProject.configure do |mod|
+  mod.user_id = ENV['MOUNTAIN_PROJECT_USER_ID']
+  mod.rss_uri = "http://www.mountainproject.com/scripts/RSS.php?type=userTicks&userId=#{mod.user_id}"
+end

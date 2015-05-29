@@ -9,6 +9,7 @@ class HomeController < ApplicationController
     @book_count_by_year      = Book.ordered.count_by{|b| b.finished_at.beginning_of_year}
     @commute_count           = Activity.commute.past_year.instances_by_week
     @training_count          = Activity.training.past_year.instances_by_week
+    @climbing_routes         = ClimbingRoute.ordered.limit(10)
 
     gon.bookCountByYearData          = @book_count_by_year.map{|k, v| v}
     gon.bookCountByYearCategories    = @book_count_by_year.map{|k, v| k.strftime('%Y')}

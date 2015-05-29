@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150201181532) do
+ActiveRecord::Schema.define(:version => 20150206190608) do
 
   create_table "activities", :force => true do |t|
     t.datetime "created_at",    :null => false
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(:version => 20150201181532) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "notes_url"
+  end
+
+  create_table "climbing_routes", :force => true do |t|
+    t.string   "name"
+    t.string   "grade"
+    t.string   "location"
+    t.string   "link"
+    t.date     "completed_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "github_actions", :force => true do |t|
